@@ -7,7 +7,8 @@ const state = {
     style: {
       backgroundColor: "#fff",
       backgroundImage: "",
-    }
+    },
+    cmdInfo:[]
   },
   wgConfig: {
     topFixed: '',
@@ -15,7 +16,10 @@ const state = {
   },
   selectWg: [],
   configTab: 'page',
-  wgCollapse: "base"
+  wgCollapse: "base",
+  cmdInfo:{
+    
+  }
 }
 
 // const actions = {
@@ -33,6 +37,10 @@ const mutations = {
   setSelectWg(state, payload) {
     state.selectWg = payload;
   },
+  setcmd(state, payload) {
+    state.cmdInfo = payload;
+    state.pageData.cmdInfo = payload;
+  },
   setConfigTab(state, payload) {
     state.configTab = payload;
   },
@@ -44,7 +52,14 @@ const mutations = {
   }
 }
 
+const getters = {
+  getcmd:state=>{
+    return state.cmdInfo
+  }
+}
+
 export default {
   state,
-  mutations
+  mutations,
+  getters
 }

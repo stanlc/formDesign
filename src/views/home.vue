@@ -167,7 +167,11 @@ export default {
     ...mapState({
       pageData: state => state.common.pageData,
       configTab: state => state.common.configTab,
-    })
+      cmdInfo:state => state.common.cmdInfo,
+    }),
+    cmmd(){
+      return this.$store.getters.getcmd
+    }
   },
   methods: {
     cloneData(obj) {
@@ -184,6 +188,7 @@ export default {
       let newWin = window.open(this.$api.previewUrl());
       let timer = setInterval(() => {
         newWin.postMessage(this.pageData, this.$api.previewUrl());
+        newWin.postMessage(this.cmmd, this.$api.previewUrl());
       }, 200);
       window.addEventListener('message', event => {
         if (event.origin !== this.$api.previewOrigin()) return;
@@ -199,7 +204,12 @@ export default {
       this.$alert('保存成功', { showClose: false });
     },
     handleChange(val){
-      console.log(val)
+      let a = val[val.length-1]
+      let _this = this
+      if(a!==undefined){
+        let obj = this.cmdList.filter(item=>item.cmd_name===a)[0]
+        _this.$store.commit('setcmd',obj)
+      }
     }
   },
   mounted() {

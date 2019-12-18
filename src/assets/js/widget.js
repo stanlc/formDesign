@@ -1,3 +1,4 @@
+
 export default {
   "basicComponents": [
     // {
@@ -176,9 +177,10 @@ export default {
     {
       type: "button",
       name: "按钮",
-      btnText: "提交",
+      btnText: '提交',
       btnType: "submit",
       apiKey: "",
+      cmdInfo:{},
       btnTypes: [{
         value: "submit",
         label: "提交"
