@@ -11,7 +11,7 @@ import router from './router'
 import axios from 'axios'
 
 Vue.prototype.$http = axios.create({
-  baseURL:'http://192.168.30.20:20001/device',//'http://192.168.60.190:11000/',http://beonelife.cn:6001/
+  baseURL:'http://192.168.30.20:20001',//'http://192.168.60.190:11000/',http://beonelife.cn:6001/
   timeout:5000,
   
 })

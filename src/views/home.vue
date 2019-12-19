@@ -93,6 +93,7 @@
             <el-button type="text" size="medium" icon="el-icon-refresh" @click="handleReset()" class="mg-r15">重置</el-button>
             <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview()" class="mg-r15">预览</el-button>
             <el-button type="text" size="medium" icon="el-icon-document" @click="handleSave()" class="mg-r15">保存</el-button>
+            <el-button type="text" size="medium" icon="el-icon-document" @click="getPage()" class="mg-r15">读取</el-button>
             <!-- <el-button type="text" size="medium" icon="el-icon-document" @click="$store.commit('setPageType','500px')" class="mg-r15">切换</el-button> -->
           </el-header>
           <el-main>
@@ -135,6 +136,14 @@ import WidgetForm from '@/components/widget-form'
 import allWidget from '@/assets/js/widget.js'
 import pageConfigData from '@/assets/js/page-config.js'
 // import allParams from '@/assets/js/params.js' 
+import $ from 'jquery'
+function getField(flag,array,json){
+    FLAG = flag;
+    $("#serial_num").val(json.serial_num);
+    $("#url").val(json.url);
+    $("#account").val(json.account);
+}
+
 export default {
   name: 'form-design',
   components: {
@@ -201,7 +210,22 @@ export default {
     },
     handleSave() {
       this.$util.setLStorage('pageData', this.pageData);
+      this.$http.post('/uiTemplate/save',{
+        data:JSON.stringify(this.pageData),
+        productCode:'0000d901'
+      }).then(res=>{
+        console.log(res)
+      })
       this.$alert('保存成功', { showClose: false });
+    },
+    getPage(){
+      this.$http.get('/uiTemplate/getObject',{
+        params:{
+          productCode:'0000d901'
+        }
+      }).then(res=>{
+        console.log(res.data)
+      })
     },
     handleChange(val){
       let a = val[val.length-1]
@@ -222,7 +246,7 @@ export default {
     })
   },
   created() {
-    this.$http.get('/getCmdByCode',{
+    this.$http.get('/device/getCmdByCode',{
       params:{
         product_code:'0000d901'
       }
